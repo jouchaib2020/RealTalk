@@ -1,0 +1,27 @@
+<main class="pt-4 flex items-center justify-center gap-4">
+  <h1>Hello ikhan, {{ title }}</h1>
+  <button class="rounded-xl bg-blue-300 hover:bg-blue-400">switch title</button>
+  <div class="w-4 h-12 bg-transparent border-r-2 border-red-500" role="separator" aria-label="Divider"></div>
+  <div class="right-side">
+    <div class="">
+      @for (item of [ { title: 'this is an anchor', link: 'https://angular.dev' }]; track item.title) {
+        <a
+          class="rounded-xl bg-blue-300 text-lg p-2"
+          [href]="item.link"
+          target="_blank"
+          rel="noopener"
+        >
+          <span>{{ item.title }}</span>
+        </a>
+      }
+      <app-comp txt="tamara" />
+      <div>
+      <h1>ikhan de merde </h1>
+      <button [disabled]="true" (click)="handleClick()" type="button"></button>
+      </div>
+    </div>
+    <inline-comp></inline-comp>
+  </div>
+</main>
+
+<router-outlet />

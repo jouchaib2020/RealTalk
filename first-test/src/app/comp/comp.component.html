@@ -1,0 +1,14 @@
+  <div class=" p-2 flex flex-col gap-y-2">
+    <p class="text-green-300 rounded border border-green-400">
+       works! {{ txt }}
+    </p>
+    <div >
+      <label name="ikhan">
+        <input type='text' class="border-gray-600 border rounded-xl active:outline-none text-xs-40 mr-2" />
+      </label>
+    </div>
+      <button type="submit" (click)="clickHandler()" class="px-2 text-sm text-green-600 bg-green-200 border border-green-300 rounded-lg">send</button>
+      <ng-template [ngIf]="txt == 1">
+        <p class="p-2 bg-zinc-200">ng-template</p>
+      </ng-template>
+  </div>
