@@ -11,8 +11,8 @@
       type="text"
       name="ikhan"
       formControlName="search"
-      [(ngModel)]="searchValue"
-      (input)="onChange()"
+      #search
+      (input)="onChange(search.value)"
       class="border-gray-600 border rounded-xl active:outline-none text-xs-40 mr-2"
     />
     <button

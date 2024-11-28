@@ -23,7 +23,7 @@ export class CompComponent {
   userService = inject(TestServiceService);
   users: UserInterface[] = [];
   filteredUsers: UserInterface[] = [];
-  searchValue: string = '';
+  // searchValue: string = '';
 
   loading: boolean = true;
   errorMessage: string | undefined;
@@ -65,8 +65,8 @@ export class CompComponent {
     // });
   }
 
-  onChange() {
-    this.filteredUsers = this.userService.filterUsers(this.searchValue);
+  onChange(searchTerm: string) {
+    this.filteredUsers = this.userService.filterUsers(searchTerm);
   }
 
   onSubmit() {
