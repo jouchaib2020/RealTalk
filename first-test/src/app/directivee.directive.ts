@@ -1,11 +1,12 @@
-import { Directive } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 
 @Directive({
-  selector: '[appDirectivee]',
-  standalone: true
+  selector: '[test-directive]',
+  standalone: true,
 })
 export class DirectiveeDirective {
-
-  constructor() { }
-
+  constructor() {
+    console.log('constructor for test-directive');
+  }
+  @Input({ required: false }) test!: boolean;
 }

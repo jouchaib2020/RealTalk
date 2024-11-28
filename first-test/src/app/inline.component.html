@@ -1,0 +1,14 @@
+<div class="bg-slate-300 text-gray-800">
+  <p class="text-red-800">Test: {{ testInput }}</p>
+  <button
+    (click)="toggleIsLoggedIn()"
+    class="rounded border border-gray-100 px-2 py-1"
+  >
+    Click
+  </button>
+  @if (isLoggedIn) {
+  <h2>Logged In</h2>
+  } @else {
+  <h2>Logged Out</h2>
+  }
+</div>

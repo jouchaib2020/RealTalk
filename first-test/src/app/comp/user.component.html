@@ -1,0 +1,20 @@
+<div *ngIf="selectedUser">
+  <div class="flex items-center">
+    <img
+      [src]="selectedUser.avatar"
+      alt="Avatar"
+      class="w-20 h-20 rounded-full mr-5"
+    />
+    <div>
+      <p class="text-sm text-gray-800 mb-2">
+        Name: <strong>{{ selectedUser.name }}</strong>
+      </p>
+      <p class="text-sm text-gray-800 mb-2">
+        Gender: <strong>{{ selectedUser.gender }}</strong>
+      </p>
+      <p class="text-sm text-gray-800 mb-2">
+        Location: <strong>{{ selectedUser.location }}</strong>
+      </p>
+    </div>
+  </div>
+</div>

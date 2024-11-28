@@ -1,14 +1,43 @@
-  <div class=" p-2 flex flex-col gap-y-2">
-    <p class="text-green-300 rounded border border-green-400">
-       works! {{ txt }}
-    </p>
-    <div >
-      <label name="ikhan">
-        <input type='text' class="border-gray-600 border rounded-xl active:outline-none text-xs-40 mr-2" />
-      </label>
-    </div>
-      <button type="submit" (click)="clickHandler()" class="px-2 text-sm text-green-600 bg-green-200 border border-green-300 rounded-lg">send</button>
-      <ng-template [ngIf]="txt == 1">
-        <p class="p-2 bg-zinc-200">ng-template</p>
-      </ng-template>
+<div
+  class="bg-slate-500 p-3 rounded flex flex-col gap-y-2 max-w-min mx-auto mb-2"
+>
+  <form
+    class="flex items-center"
+    [formGroup]="searchForm"
+    (submit)="onSubmit()"
+  >
+    <label name="ikhan"> </label>
+    <input
+      type="text"
+      name="ikhan"
+      formControlName="search"
+      class="border-gray-600 border rounded-xl active:outline-none text-xs-40 mr-2"
+    />
+    <button
+      type="submit"
+      class="px-2 text-sm text-green-600 bg-green-200 border border-green-300 rounded-lg"
+    >
+      send
+    </button>
+  </form>
+  <button
+    (click)="inputFunction()"
+    class="px-2 text-sm text-green-600 bg-green-200 border border-green-300 rounded-lg"
+  >
+    reset
+  </button>
+</div>
+<div class="grid grid-cols-3 gap-6">
+  <div
+    *ngFor="let user of users"
+    class="bg-white rounded-lg shadow-lg p-4 cursor-pointer transform transition duration-300 ease-in-out hover:bg-blue-100 hover:scale-105"
+  >
+    <user-comp [selectedUser]="user"></user-comp>
   </div>
+  <div
+    *ngIf="loading"
+    class="bg-white rounded-lg shadow-lg p-4 cursor-pointer transform transition duration-300 ease-in-out hover:bg-blue-100 hover:scale-105"
+  >
+    <p class="text-red-500">loading...</p>
+  </div>
+</div>

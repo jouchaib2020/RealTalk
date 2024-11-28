@@ -1,27 +1,31 @@
-<main class="pt-4 flex items-center justify-center gap-4">
-  <h1>Hello ikhan, {{ title }}</h1>
-  <button class="rounded-xl bg-blue-300 hover:bg-blue-400">switch title</button>
-  <div class="w-4 h-12 bg-transparent border-r-2 border-red-500" role="separator" aria-label="Divider"></div>
+<main class="bg-slate-200 pt-4 flex items-center justify-center gap-4">
+  <h1 class="block">Hello ikhan, {{ title }}</h1>
+  <app-comp class="block" [inputFunction]="funcForChild">
+    <p>thes are children nodes</p>
+  </app-comp>
+  <div
+    class="w-4 h-12 bg-transparent border-r-2 border-red-500"
+    role="separator"
+    aria-label="Divider"
+  ></div>
   <div class="right-side">
-    <div class="">
-      @for (item of [ { title: 'this is an anchor', link: 'https://angular.dev' }]; track item.title) {
-        <a
-          class="rounded-xl bg-blue-300 text-lg p-2"
-          [href]="item.link"
-          target="_blank"
-          rel="noopener"
+    <div class="py-2">
+      <mapped-comp *ngFor="let task of tasks" [task]="task"></mapped-comp>
+
+      <div class="p-2">
+        <button
+          (click)="handleClick()"
+          type="button"
+          class="rounded border bg-red-200 border-red-400 px-2 py-1"
         >
-          <span>{{ item.title }}</span>
-        </a>
-      }
-      <app-comp txt="tamara" />
-      <div>
-      <h1>ikhan de merde </h1>
-      <button [disabled]="true" (click)="handleClick()" type="button"></button>
+          parent button
+        </button>
       </div>
     </div>
-    <inline-comp></inline-comp>
+    <interface-comp
+      [navigate]="navigate"
+      [testInput]="forChild"
+    ></interface-comp>
   </div>
+  <router-outlet></router-outlet>
 </main>
-
-<router-outlet />
