@@ -2,7 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { UserInterface } from '../user-interface';
 import { TestServiceService } from '../test-service.service';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'user-comp',
@@ -29,7 +34,10 @@ export class CompComponent {
   errorMessage: string | undefined;
 
   searchForm = new FormGroup({
-    search: new FormControl(''),
+    search: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10),
+    ]),
   });
 
   @Input() inputFunction!: () => void;
@@ -70,6 +78,10 @@ export class CompComponent {
   }
 
   onSubmit() {
+    if (this.searchForm.invalid) {
+      this.searchForm.markAllAsTouched();
+      return;
+    }
     this.userService.createUser(this.searchForm.value.search);
   }
   onchange() {
