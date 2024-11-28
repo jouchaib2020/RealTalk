@@ -21,7 +21,10 @@ export class UserCompComponent {
 })
 export class CompComponent {
   userService = inject(TestServiceService);
-  users: UserInterface[] | undefined;
+  users: UserInterface[] = [];
+  filteredUsers: UserInterface[] = [];
+  searchValue: string = '';
+
   loading: boolean = true;
   errorMessage: string | undefined;
 
@@ -32,24 +35,38 @@ export class CompComponent {
   @Input() inputFunction!: () => void;
 
   ngOnInit() {
+    this.userService.logUsersChanged();
     if (this.users?.length === 0) {
       this.userService.fetchUsers(9).subscribe();
     }
-    this.userService.getUsers().subscribe({
-      next: (users) => {
-        console.log('users from subscribe', users);
-        return setTimeout(() => {
+    setTimeout(() => {
+      this.userService.getUsers().subscribe({
+        next: (users) => {
+          console.log('users from subscribe', users);
           this.users = users;
+          this.filteredUsers = users;
           this.loading = false;
-        }, 1000);
-      },
-      error: (error) => {
-        this.loading = false;
-        this.errorMessage = error
-          ? error.message
-          : 'An error occurred while fetching users';
-      },
-    });
+        },
+        error: (error) => {
+          this.loading = false;
+          this.errorMessage = error
+            ? error.message
+            : 'An error occurred while fetching users';
+        },
+      });
+    }, 1000);
+
+    // this.searchForm.valueChanges.subscribe((searchTerm) => {
+    //   if (!searchTerm.search) {
+    //     this.filteredUsers = this.users;
+    //     return;
+    //   }
+    //   this.filteredUsers = this.userService.filterUsers(searchTerm.search);
+    // });
+  }
+
+  onChange() {
+    this.filteredUsers = this.userService.filterUsers(this.searchValue);
   }
 
   onSubmit() {

@@ -11,13 +11,15 @@
       type="text"
       name="ikhan"
       formControlName="search"
+      [(ngModel)]="searchValue"
+      (input)="onChange()"
       class="border-gray-600 border rounded-xl active:outline-none text-xs-40 mr-2"
     />
     <button
       type="submit"
       class="px-2 text-sm text-green-600 bg-green-200 border border-green-300 rounded-lg"
     >
-      send
+      create
     </button>
   </form>
   <button
@@ -29,7 +31,7 @@
 </div>
 <div class="grid grid-cols-3 gap-6">
   <div
-    *ngFor="let user of users"
+    *ngFor="let user of filteredUsers"
     class="bg-white rounded-lg shadow-lg p-4 cursor-pointer transform transition duration-300 ease-in-out hover:bg-blue-100 hover:scale-105"
   >
     <user-comp [selectedUser]="user"></user-comp>

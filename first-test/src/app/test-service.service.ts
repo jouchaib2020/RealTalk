@@ -13,7 +13,7 @@ export class TestServiceService {
 
   private usersSubject = new BehaviorSubject<UserInterface[]>([]);
 
-  fetchUsers(count: number): Observable<UserInterface[]> {
+  fetchUsers(count: number) {
     console.log('fetching users');
     return this.http.get<any>(`${this.baseUrl}?results=${count}`).pipe(
       map((response) => {
@@ -30,12 +30,24 @@ export class TestServiceService {
     );
   }
 
+  logUsersChanged() {
+    this.usersSubject.subscribe((users) => {
+      console.log('users changed', users);
+    });
+  }
+
   getUsers() {
     return this.usersSubject.asObservable();
   }
 
   getUser(id: number) {
     return this.usersSubject.value.find((user) => user.id === id);
+  }
+
+  filterUsers(search: string) {
+    return this.usersSubject.value.filter((user) =>
+      user.name.toLowerCase().includes(search.toLowerCase())
+    );
   }
 
   createUser(name?: string | null) {
