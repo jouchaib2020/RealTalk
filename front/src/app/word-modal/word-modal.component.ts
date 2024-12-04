@@ -1,74 +1,62 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Word } from '../word';
-import { CommonModule } from '@angular/common';
+import { NgxBottomSheetModalService } from 'ngx-bottom-sheet-modal';
 
 @Component({
   selector: 'word-modal',
   standalone: true,
-  imports: [CommonModule],
   template: `
-    <!-- Modal (Desktop) -->
     <div
-      *ngIf="isOpen"
-      class="fixed hidden lg:flex inset-0 z-50 items-center justify-center bg-black bg-opacity-50"
-      (click)="closeModal()"
+      class=" inset-x-0 bottom-0 z-50 flex h-auto flex-col rounded-t-2xl border bg-background px-4 pb-6"
+      style="pointer-events: auto; transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1); transform: translate3d(0px, 0px, 0px);"
     >
       <div
-        (click)="$event.stopPropagation()"
-        class="relative bg-white w-full max-w-lg rounded-lg shadow-lg transition-transform duration-300"
-      >
-        <!-- Modal Content -->
-        <div class="p-4">
-          <h2 class="text-xl font-semibold mb-4">Modal Title</h2>
-          <p class="mb-4">
-            This is the modal content. You can put anything here!
-          </p>
-
-          <button
-            (click)="closeModal()"
-            class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
-          >
-            Close Modal
-          </button>
-        </div>
+        (click)="closeModal()"
+        (drag)="closeModal()"
+        class="mx-auto mb-2 mt-4 h-2 w-[100px] rounded-full bg-muted"
+      ></div>
+      <div class="mx-auto w-min flex items-center gap-x-4 justify-between mb-2">
+        <h2 class="mb-2 text-4xl font-bold text-primary">
+          {{ word?.word }}
+        </h2>
+        <span class="material-symbols-outlined text-primary-depth">
+          sync_alt
+        </span>
+        <h2 class="mb-2 text-4xl font-bold text-secondary">
+          {{ word?.word }}
+        </h2>
       </div>
-    </div>
-
-    <!-- Bottom Sheet (Mobile) -->
-    <div
-      *ngIf="isOpen"
-      class="bg-white fixed inset-x-0 bottom-0 z-50"
-      (click)="closeModal()"
-    >
-      <div
-        (click)="$event.stopPropagation()"
-        class="bg-secondary/80 w-full rounded-t-2xl shadow-lg transition-transform duration-300"
-      >
-        <!-- Bottom Sheet Content -->
-        <div
-          class="flex items-center justify-between p-5 border border-secondary rounded-xl"
+      <div>
+        <h3
+          class="mb-2 pb-1 text-lg font-bold uppercase text-muted-foreground border-b-2"
         >
-          <div class="space-y-1">
-            <h3 class="text-2xl font-bold opacity-70">{{ word.word }}</h3>
-            <p class="text-xl font-semibold">{{ word.rank }}</p>
-          </div>
-          <button
-            (click)="closeModal()"
-            class="ml-2 max-xl:px-4 bg-blue-500  p-2 rounded-md hover:bg-blue-600"
-          >
-            <span class="max-xl:hidden">close</span>
-          </button>
+          Meaning
+        </h3>
+        <p class="mb-3 text-lg">this is an explication of the word</p>
+
+        <h3
+          class="mb-2 pb-1 text-lg font-bold uppercase text-muted-foreground border-b-2"
+        >
+          Examples
+        </h3>
+        <div class="mb-3">
+          <p class="mb-1 text-lg">This is an example of the word</p>
+          <p class="mb-1 text-lg">
+            {{ 'This is another example of the word' }}
+          </p>
+          <p class="mb-1 text-lg">
+            {{ 'This is another example of the word' }}
+          </p>
         </div>
       </div>
     </div>
   `,
 })
 export class WordModalComponent {
-  @Input() word!: Word;
-  @Input() isOpen = false;
-  @Output() close = new EventEmitter<void>();
+  @Input() word!: Word | null;
 
+  constructor(private bottomSheetService: NgxBottomSheetModalService) {}
   closeModal() {
-    this.close.emit();
+    this.bottomSheetService.closeBottomSheet();
   }
 }
