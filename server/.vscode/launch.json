@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-LearnApplication<learn>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "realtalk.camp.learn.LearnApplication",
+            "projectName": "learn",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
